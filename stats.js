@@ -259,6 +259,7 @@ config.configFile(process.argv[2], function (config) {
             timer_counters[key] += (1 / sampleRate);
           } else if (metric_type === "g") {
             if (gauges[key] && fields[0].match(/^[-+]/)) {
+              l
               gauge_value =   gauges[key] + Number(fields[0] || 0);
               if (gauge_value < 0){
                 gauges[key] = 0;
@@ -267,7 +268,12 @@ config.configFile(process.argv[2], function (config) {
                 gauges[key] = gauge_value;
               }
             } else {
-              gauges[key] = Number(fields[0] || 0);
+              if (fields[0] < 0) {
+                gauges[key] = 0;
+              }
+              else {
+                gauges[key] = Number(fields[0] || 0);
+              }
             }
           } else if (metric_type === "s") {
             if (! sets[key]) {
