@@ -267,7 +267,7 @@ config.configFile(process.argv[2], function (config) {
                 gauges[key] = gauge_value;
               }
             } else {
-              if (fields[0] < 0) {
+              if (Number(fields[0] || 0) < 0) {
                 gauges[key] = 0;
               }
               else {
